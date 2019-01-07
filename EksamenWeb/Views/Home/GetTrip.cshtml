@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Entities.Flight>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Overview";
+}
+
+<h2>Overview</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@*@await Html.PartialAsync("_SearchFromTo")*@
+
+<form asp-controller="Home" asp-action="GetTrip">
+    <p>
+        Id: <input type="text" name="Id">
+        Departure Time: <input type="text" name="Departure">
+        ArrivalTime: <input type="text" name="Arrival">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AitcraftType)
+            </th>
+            <th>
+                @*<label asp-for="FromLocation" class="control-label"></label>
+                    <input asp-for="ArrivalTime" class="form-control" />@Html.DisplayNameFor(model => model.ArrivalTime)
+                    <span asp-validation-for="ArrivalTime" class="text-danger"></span>*@
+                @Html.DisplayNameFor(model => model.FromLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalTime)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AitcraftType)
+                </td>
+                <td>
+                    @*<input asp-for="FromLoaction" class="form-control" />*@
+                    @Html.DisplayFor(modelItem => item.FromLocation)
+                </td>
+                <td>
+                    @*<input asp-for="FromLoaction" class="form-control" />*@
+                    @Html.DisplayFor(modelItem => item.ToLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartureTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalTime)
+                </td>
+
+                <td>
+                    <a asp-action="GetTrip" asp-route-id="@item.FlightId">Edit</a> |
+                    <a asp-action="GetTrip" asp-route-id="@item.FlightId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.FlightId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
